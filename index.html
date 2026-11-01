@@ -385,6 +385,25 @@
           </p>
         </div>
 
+        <!-- PWA / Pantalla Completa & Acceso Directo Web -->
+        <div id="pwaBannerCard" class="tv-glass rounded-2xl p-3 border border-yellow-500/30 text-left text-xs space-y-1.5 shadow-md">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-1.5 text-yellow-300 font-bold">
+              <span>📲</span>
+              <span class="uppercase tracking-wider text-[11px] font-black">App en Pantalla Completa</span>
+            </div>
+            <button id="btnDismissPwaBanner" type="button" class="text-white/40 hover:text-white text-xs px-1">✕</button>
+          </div>
+          <p class="text-[11px] text-white/80 leading-snug">
+            <strong>Consejo iOS / Safari:</strong> Toca el botón <em>Compartir</em> (icono cuadrado con flecha hacia arriba) y selecciona <strong>«Añadir a pantalla de inicio»</strong> para disfrutar de la experiencia televisiva en pantalla completa sin barras.
+          </p>
+          <div id="pwaAndroidInstallWrap" class="hidden pt-1">
+            <button id="btnInstallPwaApp" type="button" class="btn-3d btn-3d-gold w-full py-1.5 rounded-xl text-xs font-black uppercase text-black flex items-center justify-center gap-1.5">
+              <span>📲</span> <span>Instalar App en este móvil</span>
+            </button>
+          </div>
+        </div>
+
         <!-- SELECTOR DE MODO DE JUEGO -->
         <div class="tv-glass rounded-2xl p-3 border border-white/15">
           <div class="flex items-center justify-between mb-2">
@@ -647,6 +666,15 @@
             </svg>
             <span id="antiSpoilerNoticeText" class="font-medium"><strong>Respuesta protegida:</strong> La respuesta oficial solo se desvelará al pulsar «Desvelar respuesta».</span>
           </div>
+        </div>
+
+        <!-- Botón para aportar Pregunta Personalizada con prioridad -->
+        <div class="px-1">
+          <button id="btnOpenCustomQuestionModal" type="button" class="w-full py-2 px-3 rounded-xl bg-purple-900/40 hover:bg-purple-900/70 active:scale-95 border border-purple-400/50 text-purple-200 text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 shadow-md transition-all">
+            <span>✍️</span>
+            <span>Aportar Pregunta Personalizada (Alguien del salón)</span>
+            <span class="text-[9px] px-1.5 py-0.5 rounded bg-purple-500/40 text-purple-200 font-bold">Prioridad</span>
+          </button>
         </div>
 
         <!-- Street Participants Selection -->
@@ -980,6 +1008,15 @@
           </div>
         </div>
 
+        <!-- Input nombre de la persona llamada -->
+        <div class="tv-glass rounded-2xl p-3 border border-purple-500/40 text-left max-w-sm mx-auto space-y-1 shadow-md">
+          <label for="inputWildcardContactName" class="block text-[10px] font-black uppercase tracking-wider text-purple-300">
+            📞 ¿A quién estás llamando por teléfono?
+          </label>
+          <input type="text" id="inputWildcardContactName" maxlength="24" placeholder="Nombre (ej. Tío Paco, Abuela Carmen, Dani...)"
+                 class="w-full bg-black/60 border border-purple-400/40 rounded-xl px-3 py-2 text-xs sm:text-sm text-white placeholder-white/40 focus:outline-none focus:border-purple-300 font-bold">
+        </div>
+
         <!-- 20s Wildcard Timer & Dialing -->
         <div class="tv-glass rounded-2xl p-4 border border-white/10 max-w-sm mx-auto space-y-3">
           <div class="flex items-center justify-between text-xs">
@@ -1107,6 +1144,49 @@
           <div class="tv-glass rounded-xl p-2.5 border border-white/10">
             <span class="text-white/50 block text-[10px] uppercase font-bold">Modo Jugado</span>
             <span id="finalModePlayed" class="font-black text-white text-sm">Misión TV</span>
+          </div>
+        </div>
+
+        <!-- Resumen de la Partida (Historial detallado) -->
+        <div class="tv-glass rounded-2xl p-3.5 border border-white/15 max-w-sm mx-auto text-left space-y-2">
+          <div class="flex items-center justify-between border-b border-white/10 pb-1.5">
+            <span class="text-xs font-black uppercase text-yellow-400 tracking-wider flex items-center gap-1.5">
+              <span>📋</span> Resumen de la Partida
+            </span>
+            <span class="text-[10px] text-white/50">5 Escalones</span>
+          </div>
+          <div id="recapRoundsList" class="space-y-1.5 text-xs">
+            <!-- Populated dynamically via JS -->
+          </div>
+        </div>
+
+        <!-- Diploma / Tarjeta Oficial Autogenerada en Imagen -->
+        <div id="diplomaContainer" class="tv-glass rounded-2xl p-3.5 border-2 border-yellow-500/50 max-w-sm mx-auto text-center space-y-3 shadow-2xl bg-gradient-to-br from-yellow-950/40 via-black to-yellow-950/40">
+          <div class="flex items-center justify-between text-left">
+            <div>
+              <span class="text-xs font-black uppercase text-yellow-300 block">📸 Tarjeta Oficial de la Partida</span>
+              <span class="text-[10px] text-white/60">Imagen generada automáticamente para compartir</span>
+            </div>
+            <span class="text-xl">🏆</span>
+          </div>
+
+          <!-- Preview de la Imagen Autogenerada -->
+          <div class="relative group">
+            <img id="diplomaPreviewImg" class="rounded-xl border border-yellow-400/40 shadow-xl w-full max-h-72 object-contain bg-black/80 mx-auto" alt="Diploma Oficial de la Partida" />
+            <div class="text-[10px] text-white/50 mt-1 italic">
+              (Mantén pulsada la imagen en iPhone/Android para guardarla en fotos)
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2 pt-1">
+            <button id="btnDownloadDiploma" type="button" class="btn-3d btn-3d-gold py-2.5 rounded-xl text-xs font-black uppercase text-black flex items-center justify-center gap-1.5 shadow-md">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+              <span>Descargar</span>
+            </button>
+            <button id="btnShareDiploma" type="button" class="btn-3d btn-3d-dark py-2.5 rounded-xl text-xs font-black uppercase text-white flex items-center justify-center gap-1.5">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
+              <span>Compartir</span>
+            </button>
           </div>
         </div>
       </div>
@@ -1309,6 +1389,67 @@
       </div>
     </div>
   </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: APORTAR PREGUNTA PERSONALIZADA -->
+  <!-- ========================================== -->
+  <div id="modalCustomQuestion" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden items-center justify-center p-3 sm:p-4">
+    <div class="tv-glass rounded-3xl p-5 border border-purple-500/50 max-w-md w-full shadow-2xl animate-stampImpact space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-white/15">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">✍️</span>
+          <div>
+            <h3 class="tv-title text-xl text-purple-300">PREGUNTA PERSONALIZADA</h3>
+            <p class="text-[10px] text-white/60">Aportada en directo por alguien del salón</p>
+          </div>
+        </div>
+        <button id="btnCloseCustomQuestion" class="p-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white/70">
+          ✕
+        </button>
+      </div>
+
+      <div class="space-y-3 text-left">
+        <div>
+          <label class="block text-xs font-bold text-white/80 uppercase tracking-wider mb-1">
+            📝 Escribe la Pregunta para el familiar:
+          </label>
+          <textarea id="inputCustomQText" rows="2" maxlength="160" placeholder="Ej. ¿En qué año se fue Dani a vivir a Madrid? o ¿Quién quemó la cena de Nochebuena?"
+                    class="w-full bg-black/60 border border-purple-400/40 rounded-xl p-3 text-xs sm:text-sm text-white placeholder-white/40 focus:outline-none focus:border-purple-300 font-medium"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-white/80 uppercase tracking-wider mb-1">
+            🎯 Respuesta Oficial Correcta:
+          </label>
+          <input type="text" id="inputCustomQAnswer" maxlength="60" placeholder="Ej. 2019 / El tío Paco..."
+                 class="w-full bg-black/60 border border-purple-400/40 rounded-xl px-3 py-2 text-xs sm:text-sm text-white placeholder-white/40 focus:outline-none focus:border-purple-300 font-bold">
+          <span class="text-[10px] text-yellow-300/80 block mt-1 italic">
+            🔒 La respuesta permanecerá oculta y solo se desvelará al pulsar «Desvelar respuesta».
+          </span>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-white/80 uppercase tracking-wider mb-1">
+            🏷️ Categoría (opcional):
+          </label>
+          <input type="text" id="inputCustomQCat" maxlength="30" value="Especial Salón"
+                 class="w-full bg-black/60 border border-white/20 rounded-xl px-3 py-1.5 text-xs text-white placeholder-white/40 focus:outline-none focus:border-purple-300 font-medium">
+        </div>
+      </div>
+
+      <div class="pt-2 border-t border-white/10 grid grid-cols-2 gap-2">
+        <button id="btnCancelCustomQuestion" type="button" class="btn-3d btn-3d-dark py-3 rounded-xl text-xs font-black uppercase text-white/80">
+          Cancelar
+        </button>
+        <button id="btnApplyCustomQuestion" type="button" class="btn-3d btn-3d-green py-3 rounded-xl text-xs font-black uppercase text-white shadow-lg">
+          ✓ Usar esta Pregunta
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Offscreen Canvas for Auto-generating Diploma Image -->
+  <canvas id="diplomaCanvas" width="800" height="1060" class="hidden"></canvas>
 
   <!-- ================================================================= -->
   <!-- JAVASCRIPT GAME LOGIC, WEB AUDIO API, TTS & PARTY ENGINE -->
@@ -3097,6 +3238,12 @@
         this.wildcardInterval = null;
         this.wildcardSecondsRemaining = 20;
 
+        // Match history & Wildcard contact tracking for end-of-game diploma/recap
+        this.matchRoundHistory = [];
+        this.wildcardContactCalled = null;
+        this.lastGeneratedDiplomaUrl = null;
+        this.deferredInstallPrompt = null;
+
         // DOM Elements cache
         this.cacheDom();
         this.bindEvents();
@@ -3212,6 +3359,7 @@
         this.btnStartWildcardCall = document.getElementById('btnStartWildcardCall');
         this.btnWildcardSuccess = document.getElementById('btnWildcardSuccess');
         this.btnWildcardFail = document.getElementById('btnWildcardFail');
+        this.inputWildcardContactName = document.getElementById('inputWildcardContactName');
 
         // Dilemma elements
         this.dilemmaTargetPot = document.getElementById('dilemmaTargetPot');
@@ -3227,6 +3375,12 @@
         this.finalFeedbackMessage = document.getElementById('finalFeedbackMessage');
         this.finalTiePlayed = document.getElementById('finalTiePlayed');
         this.finalModePlayed = document.getElementById('finalModePlayed');
+        this.recapRoundsList = document.getElementById('recapRoundsList');
+        this.diplomaContainer = document.getElementById('diplomaContainer');
+        this.diplomaPreviewImg = document.getElementById('diplomaPreviewImg');
+        this.btnDownloadDiploma = document.getElementById('btnDownloadDiploma');
+        this.btnShareDiploma = document.getElementById('btnShareDiploma');
+        this.diplomaCanvas = document.getElementById('diplomaCanvas');
         this.btnChooseNextContestant = document.getElementById('btnChooseNextContestant');
         this.btnBackToLobby = document.getElementById('btnBackToLobby');
 
@@ -3261,6 +3415,22 @@
         this.livePlayersList = document.getElementById('livePlayersList');
         this.btnCloseLivePlayers = document.getElementById('btnCloseLivePlayers');
         this.btnCloseLivePlayers2 = document.getElementById('btnCloseLivePlayers2');
+
+        // PWA Banner elements
+        this.pwaBannerCard = document.getElementById('pwaBannerCard');
+        this.btnDismissPwaBanner = document.getElementById('btnDismissPwaBanner');
+        this.pwaAndroidInstallWrap = document.getElementById('pwaAndroidInstallWrap');
+        this.btnInstallPwaApp = document.getElementById('btnInstallPwaApp');
+
+        // Custom Question Modal elements
+        this.btnOpenCustomQuestionModal = document.getElementById('btnOpenCustomQuestionModal');
+        this.modalCustomQuestion = document.getElementById('modalCustomQuestion');
+        this.btnCloseCustomQuestion = document.getElementById('btnCloseCustomQuestion');
+        this.btnCancelCustomQuestion = document.getElementById('btnCancelCustomQuestion');
+        this.btnApplyCustomQuestion = document.getElementById('btnApplyCustomQuestion');
+        this.inputCustomQText = document.getElementById('inputCustomQText');
+        this.inputCustomQAnswer = document.getElementById('inputCustomQAnswer');
+        this.inputCustomQCat = document.getElementById('inputCustomQCat');
       }
 
       bindEvents() {
@@ -3395,6 +3565,47 @@
         this.btnHeaderExit.addEventListener('click', () => this.openExitConfirmModal());
         this.btnCancelExit.addEventListener('click', () => this.closeExitConfirmModal());
         this.btnConfirmExit.addEventListener('click', () => this.confirmExitGame());
+
+        // Custom Question Modal
+        if (this.btnOpenCustomQuestionModal) {
+          this.btnOpenCustomQuestionModal.addEventListener('click', () => this.openCustomQuestionModal());
+        }
+        if (this.btnCloseCustomQuestion) {
+          this.btnCloseCustomQuestion.addEventListener('click', () => this.closeCustomQuestionModal());
+        }
+        if (this.btnCancelCustomQuestion) {
+          this.btnCancelCustomQuestion.addEventListener('click', () => this.closeCustomQuestionModal());
+        }
+        if (this.btnApplyCustomQuestion) {
+          this.btnApplyCustomQuestion.addEventListener('click', () => this.applyCustomQuestion());
+        }
+
+        // PWA Banner & Install events
+        if (this.btnDismissPwaBanner) {
+          this.btnDismissPwaBanner.addEventListener('click', () => {
+            if (this.pwaBannerCard) this.pwaBannerCard.classList.add('hidden');
+          });
+        }
+        if (this.btnInstallPwaApp) {
+          this.btnInstallPwaApp.addEventListener('click', () => this.handleInstallPwa());
+        }
+        window.addEventListener('beforeinstallprompt', (e) => {
+          e.preventDefault();
+          this.deferredInstallPrompt = e;
+          if (this.pwaAndroidInstallWrap) this.pwaAndroidInstallWrap.classList.remove('hidden');
+        });
+        window.addEventListener('appinstalled', () => {
+          this.deferredInstallPrompt = null;
+          if (this.pwaBannerCard) this.pwaBannerCard.classList.add('hidden');
+        });
+
+        // Diploma Download & Share
+        if (this.btnDownloadDiploma) {
+          this.btnDownloadDiploma.addEventListener('click', () => this.downloadDiplomaImage());
+        }
+        if (this.btnShareDiploma) {
+          this.btnShareDiploma.addEventListener('click', () => this.shareDiplomaImage());
+        }
       }
 
       initPwaServiceWorker() {
@@ -3810,6 +4021,9 @@
         this.wildcardUsedInGame = false;
         this.silverTieBroken = false;
         this.participantsUsedInMatch.clear();
+        this.matchRoundHistory = [];
+        this.wildcardContactCalled = null;
+        this.lastGeneratedDiplomaUrl = null;
 
         // 50% Standard, 35% Red Tie, 15% Silver Tie
         const rand = Math.random() * 100;
@@ -4250,6 +4464,22 @@
           isPass = true;
         }
 
+        // Record round history for game-over recap and diploma
+        const roundEntry = {
+          step: this.currentStep,
+          prize: PRIZE_LADDER[this.currentStep - 1] ? PRIZE_LADDER[this.currentStep - 1].basePrize : 0,
+          questionText: this.currentQuestion ? this.currentQuestion.pregunta : '',
+          category: this.currentQuestion ? this.currentQuestion.categoria : '',
+          correctAnswer: this.currentQuestion ? (this.currentQuestion.respuestaCorrecta || this.currentQuestion.respuesta || '') : '',
+          participant: this.chosenParticipantThisRound,
+          bet: this.currentBet,
+          familiarAnsweredCorrectly: familiarAnsweredCorrectly,
+          isPass: isPass,
+          isCustom: !!(this.currentQuestion && this.currentQuestion.isCustom),
+          wildcardRescue: null
+        };
+        this.matchRoundHistory.push(roundEntry);
+
         if (isPass) {
           this.handleRoundSuccess();
         } else {
@@ -4354,6 +4584,9 @@
 
         this.wildcardSecondsRemaining = 20;
         this.wildcardTimerDisplay.textContent = "20";
+        if (this.inputWildcardContactName) {
+          this.inputWildcardContactName.value = '';
+        }
         if (this.btnStartWildcardCall) {
           this.btnStartWildcardCall.classList.remove('opacity-50', 'pointer-events-none');
         }
@@ -4388,8 +4621,20 @@
         clearInterval(this.wildcardInterval);
         this.sfx.playPop();
 
+        const contactName = (this.inputWildcardContactName && this.inputWildcardContactName.value.trim()) || 'Contacto al teléfono';
+        this.wildcardContactCalled = contactName;
+
         this.wildcardAvailable = false;
         this.wildcardUsedInGame = true;
+
+        // Annotate the last round in match history with wildcard call info
+        if (this.matchRoundHistory.length > 0) {
+          const lastRound = this.matchRoundHistory[this.matchRoundHistory.length - 1];
+          lastRound.wildcardRescue = {
+            contactName: contactName,
+            isSuccess: isSuccess
+          };
+        }
 
         if (this.activeTie.id === 'silver_tie' && !this.silverTieBroken) {
           this.silverTieBroken = true;
@@ -4407,8 +4652,8 @@
         if (isSuccess) {
           this.handleRoundSuccess();
         } else {
-          this.voice.speak("El comodín tampoco pudo salvarte. ¡Fin de la partida!");
-          this.handleGameOver(0, "Fallo en el comodín de la llamada");
+          this.voice.speak(`El comodín con ${contactName} tampoco pudo salvarte. ¡Fin de la partida!`);
+          this.handleGameOver(0, `Fallo en comodín de la llamada a ${contactName}`);
         }
       }
 
@@ -4513,7 +4758,449 @@
           this.finalTitleText.className = "tv-title text-3xl sm:text-4xl text-white";
         }
 
+        // Render detailed round recap & autogenerate diploma image
+        this.renderRecapList();
+        this.generateDiplomaImage(amountWon, message);
+
         this.showScreen('gameOver');
+      }
+
+      // -------------------------------------------------------------
+      // MATCH RECAP LIST & DIPLOMA IMAGE AUTOGENERATION (CANVAS 2D)
+      // -------------------------------------------------------------
+      renderRecapList() {
+        if (!this.recapRoundsList) return;
+        this.recapRoundsList.innerHTML = '';
+
+        if (!this.matchRoundHistory || this.matchRoundHistory.length === 0) {
+          this.recapRoundsList.innerHTML = `
+            <div class="text-[11px] text-white/40 italic text-center py-2">Sin rondas registradas.</div>
+          `;
+          return;
+        }
+
+        this.matchRoundHistory.forEach((r) => {
+          const item = document.createElement('div');
+          const isPass = r.isPass;
+          const statusBg = isPass ? 'bg-emerald-950/40 border-emerald-500/40' : 'bg-red-950/40 border-red-500/40';
+          const statusBadge = isPass
+            ? `<span class="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-black text-[10px] border border-emerald-500/30">✓ SUPERADO</span>`
+            : `<span class="px-1.5 py-0.5 rounded bg-red-500/20 text-red-300 font-black text-[10px] border border-red-500/30">✗ FALLO</span>`;
+
+          const betBadge = (r.bet === 'LO_SABE')
+            ? `<span class="text-emerald-400 font-bold">Lo Sabe</span>`
+            : `<span class="text-red-400 font-bold">No Lo Sabe</span>`;
+
+          const customBadge = r.isCustom ? `<span class="text-purple-300 font-bold text-[10px]">⭐ Personalizada</span> • ` : '';
+
+          let wildcardHtml = '';
+          if (r.wildcardRescue) {
+            const wSuccess = r.wildcardRescue.isSuccess;
+            wildcardHtml = `
+              <div class="mt-1 pt-1 border-t border-white/10 text-[11px] flex items-center justify-between text-purple-200">
+                <span>📞 Comodín llamada a: <strong>${r.wildcardRescue.contactName}</strong></span>
+                <span class="${wSuccess ? 'text-emerald-300 font-bold' : 'text-red-300 font-bold'}">
+                  ${wSuccess ? '¡Salvado! ✓' : 'Fallo en llamada ✗'}
+                </span>
+              </div>
+            `;
+          }
+
+          item.className = `p-2.5 rounded-xl border text-xs space-y-1 ${statusBg}`;
+          item.innerHTML = `
+            <div class="flex items-center justify-between">
+              <span class="font-black text-yellow-400 text-xs">Paso ${r.step} (${r.prize.toLocaleString()} €)</span>
+              ${statusBadge}
+            </div>
+            <div class="text-[11px] text-white/90 truncate">
+              ${customBadge}<strong>Pregunta:</strong> ${r.questionText}
+            </div>
+            <div class="text-[11px] text-white/70 flex items-center justify-between">
+              <span>Transeúnte: <strong class="text-white">${r.participant || 'Salón'}</strong></span>
+              <span>Misión: ${betBadge}</span>
+            </div>
+            ${wildcardHtml}
+          `;
+          this.recapRoundsList.appendChild(item);
+        });
+      }
+
+      generateDiplomaImage(amountWon, message) {
+        if (!this.diplomaCanvas) return;
+        const canvas = this.diplomaCanvas;
+        const ctx = canvas.getContext('2d');
+        const w = canvas.width;
+        const h = canvas.height;
+
+        // Polyfill roundRect for older mobile browsers
+        if (!ctx.roundRect) {
+          ctx.roundRect = function(x, y, rw, rh, radii) {
+            const r = Array.isArray(radii) ? radii[0] : (radii || 0);
+            this.beginPath();
+            this.moveTo(x + r, y);
+            this.arcTo(x + rw, y, x + rw, y + rh, r);
+            this.arcTo(x + rw, y + rh, x, y + rh, r);
+            this.arcTo(x, y + rh, x, y, r);
+            this.arcTo(x, y, x + rw, y, r);
+            this.closePath();
+            return this;
+          };
+        }
+
+        // Clear canvas
+        ctx.clearRect(0, 0, w, h);
+
+        // Background Gradient
+        const bg = ctx.createLinearGradient(0, 0, w, h);
+        bg.addColorStop(0, '#1c0307');
+        bg.addColorStop(0.5, '#0b0206');
+        bg.addColorStop(1, '#160205');
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, w, h);
+
+        // Center Radial TV Glow
+        const radial = ctx.createRadialGradient(w / 2, 280, 40, w / 2, 280, 400);
+        radial.addColorStop(0, 'rgba(225, 6, 0, 0.22)');
+        radial.addColorStop(0.6, 'rgba(250, 204, 21, 0.08)');
+        radial.addColorStop(1, 'rgba(0, 0, 0, 0)');
+        ctx.fillStyle = radial;
+        ctx.fillRect(0, 0, w, h);
+
+        // Golden Double Border
+        ctx.strokeStyle = '#D4AF37';
+        ctx.lineWidth = 6;
+        ctx.strokeRect(22, 22, w - 44, h - 44);
+
+        ctx.strokeStyle = '#856404';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(32, 32, w - 64, h - 64);
+
+        // Corner Ornaments
+        [[22, 22], [w - 22, 22], [22, h - 22], [w - 22, h - 22]].forEach(([cx, cy]) => {
+          ctx.fillStyle = '#FFD700';
+          ctx.beginPath();
+          ctx.arc(cx, cy, 7, 0, Math.PI * 2);
+          ctx.fill();
+        });
+
+        // Top Cuatro Badge
+        ctx.fillStyle = '#E10600';
+        ctx.beginPath();
+        ctx.roundRect(w / 2 - 120, 50, 240, 32, [8]);
+        ctx.fill();
+        ctx.strokeStyle = '#FF8888';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        ctx.fillStyle = '#FFFFFF';
+        ctx.font = 'bold 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('CUATRO • TELEVISIÓN', w / 2, 71);
+
+        // Title: LO SABE, NO LO SABE
+        ctx.fillStyle = '#FFD700';
+        ctx.font = '900 40px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+        ctx.shadowColor = 'rgba(250, 204, 21, 0.6)';
+        ctx.shadowBlur = 14;
+        ctx.fillText('LO SABE, NO LO SABE', w / 2, 126);
+        ctx.shadowBlur = 0;
+
+        // Subtitle
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.75)';
+        ctx.font = 'bold 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+        ctx.fillText('DIPLOMA OFICIAL • PRESENTADO POR XUSO JONES', w / 2, 154);
+
+        // Divider
+        ctx.strokeStyle = 'rgba(255, 215, 0, 0.35)';
+        ctx.beginPath();
+        ctx.moveTo(80, 172);
+        ctx.lineTo(w - 80, 172);
+        ctx.stroke();
+
+        // Certificate Statement
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+        ctx.font = '14px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+        ctx.fillText('Se certifica que el/la concursante oficial:', w / 2, 202);
+
+        // Contestant Name
+        ctx.fillStyle = '#FFEB3B';
+        ctx.font = '900 34px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+        ctx.shadowColor = 'rgba(255, 235, 59, 0.5)';
+        ctx.shadowBlur = 10;
+        ctx.fillText((this.currentContestant || 'CONCURSANTE').toUpperCase(), w / 2, 244);
+        ctx.shadowBlur = 0;
+
+        // Prize Card Box
+        const pBoxY = 265;
+        const pBoxH = 125;
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.65)';
+        ctx.beginPath();
+        ctx.roundRect(70, pBoxY, w - 140, pBoxH, [18]);
+        ctx.fill();
+        ctx.strokeStyle = amountWon > 0 ? '#FFD700' : '#E10600';
+        ctx.lineWidth = 2.5;
+        ctx.stroke();
+
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+        ctx.font = 'bold 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+        ctx.fillText('PREMIO CONSEGUIDO', w / 2, pBoxY + 28);
+
+        ctx.fillStyle = amountWon > 0 ? '#4ADE80' : '#FF6B6B';
+        ctx.font = '900 48px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+        ctx.fillText(`${amountWon.toLocaleString()} €`, w / 2, pBoxY + 78);
+
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+        ctx.font = 'italic 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+        const cleanMsg = (message || '').replace(/"/g, '');
+        ctx.fillText(`"${cleanMsg}"`, w / 2, pBoxY + 108);
+
+        // Tie and Mode labels
+        const tieText = `Corbata: ${this.activeTie ? this.activeTie.name : 'Estándar'}`;
+        const modeText = `Modo: ${this.gameMode === 'TV_CLASSIC' ? 'Misión TV (Oficial)' : 'Apuesta Libre'}`;
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+        ctx.font = '12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+        ctx.fillText(`${tieText}   |   ${modeText}`, w / 2, pBoxY + 150);
+
+        // Rounds List
+        let startY = 445;
+        ctx.fillStyle = '#FFD700';
+        ctx.font = '900 14px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+        ctx.textAlign = 'left';
+        ctx.fillText('HISTORIAL DETALLADO DE ESCALONES:', 70, startY);
+
+        startY += 12;
+        const cardW = w - 140;
+        const cardH = 74;
+        const maxRows = Math.min(5, this.matchRoundHistory.length);
+
+        for (let i = 0; i < maxRows; i++) {
+          const r = this.matchRoundHistory[i];
+          const rY = startY + i * (cardH + 8);
+
+          // Card Background
+          ctx.fillStyle = r.isPass ? 'rgba(16, 185, 129, 0.12)' : 'rgba(225, 6, 0, 0.15)';
+          ctx.beginPath();
+          ctx.roundRect(70, rY, cardW, cardH, [10]);
+          ctx.fill();
+          ctx.strokeStyle = r.isPass ? 'rgba(16, 185, 129, 0.4)' : 'rgba(225, 6, 0, 0.4)';
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+
+          // Escalón badge & Status
+          ctx.font = '900 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+          ctx.fillStyle = '#FFD700';
+          ctx.fillText(`Paso ${r.step} (${r.prize.toLocaleString()} €)`, 85, rY + 22);
+
+          ctx.textAlign = 'right';
+          if (r.isPass) {
+            ctx.fillStyle = '#4ADE80';
+            ctx.fillText('SUPERADO ✓', 70 + cardW - 15, rY + 22);
+          } else {
+            ctx.fillStyle = '#F87171';
+            ctx.fillText('FALLO ✗', 70 + cardW - 15, rY + 22);
+          }
+          ctx.textAlign = 'left';
+
+          // Question line
+          ctx.font = '12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.88)';
+          let qPreview = r.questionText || '';
+          if (qPreview.length > 56) qPreview = qPreview.substring(0, 54) + '...';
+          if (r.isCustom) qPreview = '⭐ [Personalizada] ' + qPreview;
+          ctx.fillText(qPreview, 85, rY + 42);
+
+          // Details line
+          ctx.font = '11px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.65)';
+          const betStr = (r.bet === 'LO_SABE') ? 'LO SABE' : 'NO LO SABE';
+          let detailLine = `Transeúnte: ${r.participant || 'Salón'}  •  Misión: ${betStr}`;
+          if (r.wildcardRescue) {
+            detailLine += `  •  📞 Llamada a ${r.wildcardRescue.contactName}: ${r.wildcardRescue.isSuccess ? '¡Salvado!' : 'Fallo'}`;
+          }
+          ctx.fillText(detailLine, 85, rY + 62);
+        }
+
+        if (maxRows === 0) {
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+          ctx.font = 'italic 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+          ctx.fillText('Partida finalizada sin rondas registradas.', 85, startY + 30);
+        }
+
+        // Signatures and Footer
+        const footY = 940;
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+        ctx.beginPath();
+        ctx.moveTo(90, footY);
+        ctx.lineTo(290, footY);
+        ctx.moveTo(510, footY);
+        ctx.lineTo(710, footY);
+        ctx.stroke();
+
+        ctx.textAlign = 'center';
+        ctx.font = 'bold 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillText('XUSO JONES', 190, footY + 20);
+        ctx.fillText('EL SEÑOR CUATRO', 610, footY + 20);
+
+        ctx.font = '11px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+        ctx.fillText('Presentador Oficial', 190, footY + 35);
+        ctx.fillText('Dirección del Programa', 610, footY + 35);
+
+        // Date and legal line
+        const now = new Date();
+        const dateStr = now.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
+        ctx.fillStyle = 'rgba(255, 215, 0, 0.6)';
+        ctx.font = '11px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+        ctx.fillText(`Emitido el ${dateStr} • Lo Sabe, No Lo Sabe • Mediaset España / Cuatro`, w / 2, footY + 75);
+
+        try {
+          const dataUrl = canvas.toDataURL('image/png');
+          this.lastGeneratedDiplomaUrl = dataUrl;
+          if (this.diplomaPreviewImg) {
+            this.diplomaPreviewImg.src = dataUrl;
+          }
+        } catch(e) {
+          console.error("Error exporting diploma canvas to dataURL:", e);
+        }
+      }
+
+      downloadDiplomaImage() {
+        if (!this.lastGeneratedDiplomaUrl) {
+          alert("Generando la imagen del diploma, inténtalo en un segundo...");
+          return;
+        }
+        this.sfx.playPop();
+        const a = document.createElement('a');
+        a.href = this.lastGeneratedDiplomaUrl;
+        const safeName = (this.currentContestant || 'Concursante').replace(/[^a-zA-Z0-9_-]/g, '_');
+        a.download = `Diploma_LoSabeNoLoSabe_${safeName}.png`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+
+      async shareDiplomaImage() {
+        if (!this.lastGeneratedDiplomaUrl) return;
+        this.sfx.playPop();
+
+        if (navigator.share) {
+          try {
+            const res = await fetch(this.lastGeneratedDiplomaUrl);
+            const blob = await res.blob();
+            const safeName = (this.currentContestant || 'Concursante').replace(/[^a-zA-Z0-9_-]/g, '_');
+            const file = new File([blob], `Diploma_LoSabeNoLoSabe_${safeName}.png`, { type: 'image/png' });
+
+            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+              await navigator.share({
+                title: 'Diploma Lo Sabe, No Lo Sabe',
+                text: `¡${this.currentContestant} ha jugado a Lo Sabe No Lo Sabe y ha conseguido ${this.finalPrizeAmount.textContent}!`,
+                files: [file]
+              });
+              return;
+            } else {
+              await navigator.share({
+                title: 'Diploma Lo Sabe, No Lo Sabe',
+                text: `¡${this.currentContestant} ha jugado a Lo Sabe No Lo Sabe y ha conseguido ${this.finalPrizeAmount.textContent}!`,
+                url: window.location.href
+              });
+              return;
+            }
+          } catch(err) {
+            console.log('Share canceled or not allowed', err);
+          }
+        }
+
+        // Fallback for desktop or environments without Web Share API
+        alert("Para guardar el diploma, mantén pulsada la imagen en el móvil para guardarla en tus fotos, o pulsa en 'Descargar'.");
+      }
+
+      // -------------------------------------------------------------
+      // CUSTOM QUESTION MODAL (EN DIRECTO CON PRIORIDAD)
+      // -------------------------------------------------------------
+      openCustomQuestionModal() {
+        this.sfx.playPop();
+        if (this.inputCustomQText) this.inputCustomQText.value = '';
+        if (this.inputCustomQAnswer) this.inputCustomQAnswer.value = '';
+        if (this.inputCustomQCat) this.inputCustomQCat.value = 'Especial Salón';
+        if (this.modalCustomQuestion) {
+          this.modalCustomQuestion.classList.remove('hidden');
+          this.modalCustomQuestion.classList.add('flex');
+        }
+        setTimeout(() => {
+          if (this.inputCustomQText) this.inputCustomQText.focus();
+        }, 100);
+      }
+
+      closeCustomQuestionModal() {
+        this.sfx.playPop();
+        if (this.modalCustomQuestion) {
+          this.modalCustomQuestion.classList.add('hidden');
+          this.modalCustomQuestion.classList.remove('flex');
+        }
+      }
+
+      applyCustomQuestion() {
+        const qText = this.inputCustomQText ? this.inputCustomQText.value.trim() : '';
+        const qAnswer = this.inputCustomQAnswer ? this.inputCustomQAnswer.value.trim() : '';
+        const qCat = (this.inputCustomQCat && this.inputCustomQCat.value.trim()) || 'Especial Salón';
+
+        if (!qText) {
+          alert("Por favor escribe la pregunta para el familiar.");
+          if (this.inputCustomQText) this.inputCustomQText.focus();
+          return;
+        }
+
+        if (!qAnswer) {
+          alert("Por favor escribe la respuesta correcta (permanecerá oculta hasta desvelar la tarjeta).");
+          if (this.inputCustomQAnswer) this.inputCustomQAnswer.focus();
+          return;
+        }
+
+        this.sfx.playPop();
+
+        const customQ = {
+          id: 'custom_' + Date.now(),
+          nivel: this.currentStep,
+          dificultad: "Personalizada",
+          categoria: qCat,
+          pregunta: qText,
+          respuestaCorrecta: qAnswer,
+          datosAceptados: qAnswer,
+          curiosidad: "¡Pregunta aportada en directo por un miembro del salón! ¡Prioridad absoluta!",
+          isCustom: true
+        };
+
+        this.currentQuestion = customQ;
+
+        // Update Step 1 UI immediately with priority question
+        this.qCategoryBadge.innerHTML = `<span class="text-purple-300 font-black">⭐ ${customQ.categoria} (Personalizada)</span>`;
+        this.qText.textContent = customQ.pregunta;
+        this.xusoPhraseText.textContent = `"¡Ojo que alguien del salón se ha animado a poner a prueba a ${this.currentContestant}!"`;
+
+        // Update Step 4 texts so when flipped it will show the custom answer and curiosity
+        this.correctAnswerText.textContent = customQ.respuestaCorrecta;
+        this.acceptedDataText.textContent = customQ.datosAceptados;
+        this.curiosityText.textContent = customQ.curiosidad;
+
+        this.closeCustomQuestionModal();
+
+        this.voice.speak(`¡Atención! ¡Pregunta personalizada aportada en directo con prioridad! Categoría: ${customQ.categoria}. ${this.currentContestant}, ¡mira bien a quién eliges!`);
+      }
+
+      // -------------------------------------------------------------
+      // PWA INSTALLATION HELPER
+      // -------------------------------------------------------------
+      handleInstallPwa() {
+        if (this.deferredInstallPrompt) {
+          this.deferredInstallPrompt.prompt();
+          this.deferredInstallPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+              if (this.pwaBannerCard) this.pwaBannerCard.classList.add('hidden');
+            }
+            this.deferredInstallPrompt = null;
+          });
+        }
       }
 
       // -------------------------------------------------------------
